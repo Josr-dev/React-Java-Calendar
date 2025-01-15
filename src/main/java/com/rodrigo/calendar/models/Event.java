@@ -29,7 +29,7 @@ public class Event {
     @NotNull
     private LocalDateTime end;
 
-    private UserDto userDto;
+    private UserDto user;
 
     public String getId() {
         return id;
@@ -71,12 +71,12 @@ public class Event {
         this.end = end;
     }
 
-    public UserDto getUserDto() {
-        return userDto;
+    public UserDto getUser() {
+        return user;
     }
 
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     

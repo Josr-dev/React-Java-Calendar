@@ -13,5 +13,9 @@ public interface UserService {
 
     List<User> list();
 
-    public UserDto getCurrentUserId();
+    UserDto getCurrentUserId();
+
+    User getUserByUsername(String username);
+
+    ResponseEntity<?> getNewToken();
 }

@@ -32,10 +32,10 @@ public class EventServiceImpl implements EventService{
     @Override
     @Transactional
     public ResponseEntity<?> insertEvent(Event event) {
-        UserDto userDto = userService.getCurrentUserId();
-        System.out.println(userDto);
-        if (userDto != null) {
-            event.setUserDto(userDto);;
+        UserDto user = userService.getCurrentUserId();
+        System.out.println(user);
+        if (user != null) {
+            event.setUser(user);;
             Event eventSaved = repository.insert(event);
             Map<String, Object> bodyResponse = new HashMap<>();
             bodyResponse.put("ok", true);
@@ -59,16 +59,16 @@ public class EventServiceImpl implements EventService{
 
         Event eventDb = eventOptional.get();
         UserDto userCurrent = userService.getCurrentUserId();
-        System.out.println("El id del evento es: " + eventDb.getUserDto().getId());
+        System.out.println("El id del evento es: " + eventDb.getUser().getId());
         System.out.println("El id del usuario activo es: " + userCurrent.getId());
-        if (!eventDb.getUserDto().getId().equals(userCurrent.getId())) {
+        if (!eventDb.getUser().getId().equals(userCurrent.getId())) {
             responseBody.put("ok", false);
             responseBody.put("message", "No tiene permiso de modificar este evento");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
         }
 
         event.setId(idEvent);
-        event.setUserDto(userCurrent);
+        event.setUser(userCurrent);
         repository.save(event);
         responseBody.put("ok", true);
         responseBody.put("event", event);
@@ -92,7 +92,7 @@ public class EventServiceImpl implements EventService{
         UserDto userCurrent = userService.getCurrentUserId();
         // System.out.println("El id del evento es: " + eventDb.getUserDto().getId());
         // System.out.println("El id del usuario activo es: " + userCurrent.getId());
-        if (!eventDb.getUserDto().getId().equals(userCurrent.getId())) {
+        if (!eventDb.getUser().getId().equals(userCurrent.getId())) {
             responseBody.put("ok", false);
             responseBody.put("message", "No tiene permiso de eliminar este evento");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);

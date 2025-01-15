@@ -28,18 +28,10 @@ public class UserController {
     @Autowired
     UserService service;
 
-    // @PostMapping("/new")
-    // public Map<String, Object> crearUsuario(@Valid @RequestBody Map<String, Object> param) {
-    //     Map<String, Object> response = new HashMap<>();
-
-    //     response.put("ok", true);
-    //     response.put("message", "Registro");
-    //     response.put("name", param.get("username"));
-    //     response.put("email", param.get("email"));
-    //     response.put("password", param.get("password"));
-
-    //     return response;
-    // }
+    @GetMapping("/renew")
+    public ResponseEntity<?> revalidarToken() {
+        return service.getNewToken();
+    }
 
     @PostMapping
     public Map<String, Object> loginUsuario(@Valid @RequestBody Map<String, Object> param) {
